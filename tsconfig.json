@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",           // Use ECMAScript modules
+    "moduleResolution": "Node",   // Resolves modules in Node.js style
+    "target": "ESNext",           // Enables latest ES features
+    "esModuleInterop": true,      // Allows interop with CommonJS modules
+    "resolveJsonModule": true,    // Allows importing JSON files
+    "allowSyntheticDefaultImports": true, // Enables default imports for CommonJS
+    "strict": true,               // Enforces strict type checking
+    "rootDir": "src",             // Set root directory for TypeScript files
+    "outDir": "dist",             // Set output directory for compiled files
+    "forceConsistentCasingInFileNames": true // Prevents case mismatches
+  },
+  "include": ["src"],             // Include all TS files in the src folder
+  "exclude": ["node_modules"]     // Exclude unnecessary folders
+}
