@@ -36,6 +36,30 @@ function emitAreaUpdate(
   });
 }
 
+function availableAreaExists(table: number[][]) {
+  const n = table.length;
+  const m = table[0].length;
+
+  for (let r1 = 0; r1 < n; r1++) {
+    for (let r2 = r1; r2 < n; r2++) {
+      for (let c1 = 0; c1 < m; c1++) {
+        for (let c2 = c1; c2 < m; c2++) {
+          let sum = 0;
+          for (let r = r1; r <= r2; r++) {
+            for (let c = c1; c <= c2; c++) {
+              sum += table[r][c];
+            }
+          }
+          if (sum === 10) {
+            return true;
+          }
+        }
+      }
+    }
+  }
+  return false;
+}
+
 const rooms = new Map<string, RoomState>();
 const player_room = new Map<string, string>();
 
@@ -138,6 +162,17 @@ io.on('connection', (socket) => {
         score: room!.score,
         table: room!.table,
       });
+
+      if (!availableAreaExists(room!.table!)) {
+        const N = 10;
+        const M = 17;
+        room!.table = Array.from({ length: N }, () =>
+          Array.from({ length: M }, () => Math.floor(Math.random() * 9) + 1),
+        );
+        io.to(roomId!).emit('tableRefreshed', {
+          table: room!.table,
+        });
+      }
     }
   });
 
